@@ -73,7 +73,7 @@ section	.text
 	call  print_string
 
 		;; Getting first digit from user 
-	mov eax, 3 ; UNSURE of significance of number 3
+	mov eax, 3 ; UNSURE of significance of number 3?
 	mov ebx, 2
 	mov ecx, var1
 	mov edx, 1
@@ -97,11 +97,18 @@ section	.text
 	mov al, [var1] 		; al = var1 value
 	cmp al, byte [var2] 	; the variables couldn't be compared directly so al was used
 			  	; the values held in 2 memory locatiuons cant be compared by a ;single instruction
+	
+	
 	je var1_eq_var2 	; put sum of variable values into the "sum" variable
 				; if we are here, var1 != var2
+	  
+	  mov edi, msg_notEQ	; ADDEd THIS TO TRY and concatenate
+	  
 	  mov edi, msg_notEQ	; put EQUAL message into edi register
 	  call print_string 	; print new line	
 	  jmp end_main 		; go to end of main program section
+	
+	
 	var1_eq_var2:
 				; if we are here, var1 == var2
   	  mov edi, msg_EQ	; put EQUAL meddage into edi register
