@@ -1,6 +1,56 @@
-;
-; constants
+
+;;;; SYMBOLIC CONSTANT DEFINITIONS
+
+null 	equ	0x00
+MAXARGS	equ	2 ; 1 = program path 2 = 1st arg 3 = 2md arg etc...
+sys_exit	equ	1
+sys_read	equ	3
+sys_write	equ 	4
+stdin		equ 	0
+stdout		equ	1
+stderr		equ	3
+
+
+;;;; MACRO DEFINITIONS
+	; print_char macro
+	; PRINTS ONE ASCII CHARACTER TO THE CONSOLE
+
+	%macro print_char 1
+		mov eax, 4
+		mov ebx, stdout
+		mov ecx, %1
+		mov edx, 1
+		int 0x80
+	%endmacro
+
+	%macro pushRegisters 0
+		push eax 
+		push ebx
+		push ecx
+		push edx
+	%endmacro
+
+	%macro popRegisters 0
+		pop eax 
+		pop ebx
+		pop ecx
+		pop edx
+	%endmacro
+
+	;exit0 macro
+	; exits program with return code 0
+	%macro exit0 0
+		mov ebx, 0
+		mov eax, sys_exit
+		int 0x80
+	%endmacro
+
+
+
+;;;; DATA SEGMENT
+
 section	.data
+
 msg	db	'Please enter a digit: ',0xa
 len	equ	$ - msg
 var1: db 0xff	;UNSURE of why we start at 0xff
@@ -10,6 +60,9 @@ msg_notEQ: db 'The byte values are NOT equal', 0x00
 msg_EQ: db 'The byte values ARE equal', 0x00
 msg_prompt1: db 'Please enter the first digit: ', 0x00
 msg_promp2: db 'Please enter the second digit: ', 0x00
+
+
+
 
 
 section	.text
@@ -58,6 +111,8 @@ section	.text
 	end_main:
 	exit0	
 
+
+
 	;;;;;;;; FUNCTIONS/SUBROUTINE ;;;;;;;;;;;;;;;;;;;;;;;;;;
 	; print_nl
 	; prints a newline
@@ -89,6 +144,9 @@ section	.text
 	endstring:
 	popRegister
 	    ret
+
+
+
 	    
 
 
