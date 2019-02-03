@@ -51,8 +51,6 @@ stderr		equ	3
 
 section	.data
 
-msg	db	'Please enter a digit: ',0xa
-len	equ	$ - msg
 var1: db 0xff	;UNSURE of why we start at 0xff
 var2: db 0xee
 n1: db 0x0a, 0x0d
@@ -96,7 +94,7 @@ section	.text
 	; assuming var1 and var2 exist and havesome values
 	mov al, [var1] 		; al = var1 value
 	cmp al, byte [var2] 	; the variables couldn't be compared directly so al was used
-			  	; the values held in 2 memory locatiuons cant be compared by a single instruction
+			  	; the values held in 2 memory locatiuons cant be compared by a ;single instruction
 	je var1_eq_var2 	; put sum of variable values into the "sum" variable
 				; if we are here, var1 != var2
 	  mov edi, msg_notEQ	; put EQUAL message into edi register
@@ -135,14 +133,14 @@ section	.text
 	print_string:
 	pushRegisters
 	mov ecx, edi
-	checknull;
+	checknull:
 	cmp byte [ecx], null
 	jz endstring
 	    print_char ecx
 	    inc ecx
 	    jmp checknull
 	endstring:
-	popRegister
+	popRegisters
 	    ret
 
 
