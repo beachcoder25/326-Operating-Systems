@@ -59,7 +59,7 @@ n1: db 0x0a, 0x0d
 msg_notEQ: db 'The byte values are NOT equal', 0x00
 msg_EQ: db 'The byte values ARE equal', 0x00
 msg_prompt1: db 'Please enter the first digit: ', 0x00
-msg_promp2: db 'Please enter the second digit: ', 0x00
+msg_prompt2: db 'Please enter the second digit: ', 0x00
 
 
 
@@ -67,7 +67,7 @@ msg_promp2: db 'Please enter the second digit: ', 0x00
 
 section	.text
 	GLOBAL _start		;must be declared for using gcc
-	-start:
+	_start:
 
 	mov edi, msg_prompt1
 	call  print_string
@@ -95,11 +95,11 @@ section	.text
 	
 	; assuming var1 and var2 exist and havesome values
 	mov al, [var1] 		; al = var1 value
-	cmp al, byt[var2] 	; the variables couldn't be compared directly so al was used
+	cmp al, byte [var2] 	; the variables couldn't be compared directly so al was used
 			  	; the values held in 2 memory locatiuons cant be compared by a single instruction
 	je var1_eq_var2 	; put sum of variable values into the "sum" variable
 				; if we are here, var1 != var2
-	  mov edi, mst_notEQ	; put EQUAL message into edi register
+	  mov edi, msg_notEQ	; put EQUAL message into edi register
 	  call print_string 	; print new line	
 	  jmp end_main 		; go to end of main program section
 	var1_eq_var2:
