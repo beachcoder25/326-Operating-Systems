@@ -55,7 +55,9 @@ var1: db 0xff	;UNSURE of why we start at 0xff
 var2: db 0xee
 n1: db 0x0a, 0x0d
 msg_notEQ: db 'The byte values are NOT equal', 0x00
-msg_EQ: db 'The byte values ARE equal', 0x00
+msg_greaterThan: db ' is greater than ', 0x00
+msg_lessThan: db ' is less than ', 0x00
+msg_EQ: db ' is equal to ', 0x00
 msg_prompt1: db 'Please enter the first digit: ', 0x00
 msg_prompt2: db 'Please enter the second digit: ', 0x00
 
@@ -131,17 +133,17 @@ section	.text
 	; uses		- eax, ebx, ecx, edx
 	; returns - nothing
 	print_string:
-	pushRegisters
-	mov ecx, edi
-	checknull:
-	cmp byte [ecx], null
-	jz endstring
-	    print_char ecx
-	    inc ecx
-	    jmp checknull
-	endstring:
-	popRegisters
-	    ret
+		pushRegisters
+		mov ecx, edi
+		checknull:
+		cmp byte [ecx], null
+		jz endstring
+		    print_char ecx
+		    inc ecx
+		    jmp checknull
+		endstring:
+		popRegisters
+		    ret
 
 
 
