@@ -102,9 +102,13 @@ section	.text
 	je var1_eq_var2 	; put sum of variable values into the "sum" variable
 				; if we are here, var1 != var2
 	  
-	  mov edi, msg_notEQ	; ADDEd THIS TO TRY and concatenate
 	  
 	  mov edi, msg_notEQ	; put EQUAL message into edi register
+	  
+	  ; I should use the print_char here to print the variables?
+	  ; How do I know which register it is in?
+	  ;   print_char ecx
+
 	  call print_string 	; print new line	
 	  jmp end_main 		; go to end of main program section
 	
