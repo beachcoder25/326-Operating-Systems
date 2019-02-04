@@ -51,15 +51,15 @@ stderr		equ	3
 
 section	.data
 
-var1: db 0xff	;UNSURE of why we start at 0xff
-var2: db 0xee
+var1: db 0xff, 0	;UNSURE of why we start at 0xff
+var2: db 0xee, 0 ; single ASCII can call printstream pass address of var1 into edi
 n1: db 0x0a, 0x0d
 msg_notEQ: db 'The byte values are NOT equal', 0x00
 msg_greaterThan: db ' is greater than ', 0x00
 msg_lessThan: db ' is less than ', 0x00
 msg_EQ: db ' is equal to ', 0x00
-msg_prompt1: db 'Please enter the first digit: ', 0x00
-msg_prompt2: db 'Please enter the second digit: ', 0x00
+msg_prompt1: db 'Please enter a digit: ', 0x00
+msg_prompt2: db 'Please enter a second digit: ', 0x00
 
 
 
@@ -101,24 +101,48 @@ section	.text
 	
 	je var1_eq_var2 	; put sum of variable values into the "sum" variable
 				; if we are here, var1 != var2
+	jg var1_gt_var2
+	
+	; This should code will be for LESS THAN due to previous jumps
 	  
-	  
-	  mov edi, msg_notEQ	; put EQUAL message into edi register
+	  mov edi, var1
+	  call print_string
+	  mov edi, msg_lessThan ; put EQUAL message into edi register
+	  call print_string
+	  mov edi, var2
+	  call print_string
 	  
 	  ; I should use the print_char here to print the variables?
 	  ; How do I know which register it is in?
 	  ;   print_char ecx
 
-	  call print_string 	; print new line	
+	  call print_nl 	; print new line	
 	  jmp end_main 		; go to end of main program section
 	
+	; can use print string for printing variable alter data.segment
 	
 	var1_eq_var2:
 				; if we are here, var1 == var2
+	  mov edi, var1
+	  call print_string
   	  mov edi, msg_EQ	; put EQUAL meddage into edi register
 	  call print_string	; print EQUAL message
+	  mov edi, var2
+	  call print_string
 	  call print_nl 	; print nl
-	jmp end_main		; go to end of main program section
+	  jmp end_main		; go to end of main program section
+	 
+	 var1_gt_var2:
+	 
+	   mov edi, var1
+	  call print_string
+  	  mov edi, msg_greaterThan	; put EQUAL meddage into edi register
+	  call print_string	; print EQUAL message
+	  mov edi, var2
+	  call print_string
+	  call print_nl 	; print nl
+	 jmp end_main	
+	
 	end_main:
 	exit0	
 
