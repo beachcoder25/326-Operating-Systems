@@ -1,26 +1,61 @@
+Skip to content
+ 
+Search or jump to…
+
+Pull requests
+Issues
+Marketplace
+Explore
+ @beachcoder25 Sign out
+0
+0 0 beachcoder25/326-Operating-Systems
+ Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
+326-Operating-Systems/Lab2/lab2.asm
+a0030c7  a day ago
+@beachcoder25 beachcoder25 Lab2 completed!
+     
+190 lines (141 sloc)  3.73 KB
 
 ;;;; SYMBOLIC CONSTANT DEFINITIONS
 
 null 	equ	0x00
 MAXARGS	equ	2 ; 1 = program path 2 = 1st arg 3 = 2md arg etc...
-sys_exit	equ	1
+sys_exit	equ	1 ; goes into eax register, eax is where OS looks for syscall code
 sys_read	equ	3
 sys_write	equ 	4
 stdin		equ 	0
-stdout		equ	1
+stdout		equ	1 ; passed ebx register, used as file descriptor, stdout is the name of the file, stdout will ALWAYS eq 1 
 stderr		equ	3
 
 
 ;;;; MACRO DEFINITIONS
 	; print_char macro
 	; PRINTS ONE ASCII CHARACTER TO THE CONSOLE
+	
+	
+	
+	;;;;; QUESTIONS
+	; Difference between a macro and a function?
+		; Macro, creates different text/symbol to reporesent text; Replacing one symbol with another, symbol being replaced can be anything
+	; Is there a reason we didn't use print-char to print the digit input by the user instead of print_string?
+		; We could have used print_char, would have been optimal
+	; Walk through sys calls and mov instructions for print_char... Hoe can sys_exit equ 1 AND stdout also equ 1
 
-	%macro print_char 1
-		mov eax, 4
-		mov ebx, stdout
-		mov ecx, %1
-		mov edx, 1
+	; Reference is the actual address of a variable
+	; Pointer 
+	; Focus on OS related information, C++ was just a supplement, nbthing C++ related
+	%macro print_char 1 ; 1 is like a paramtert
+		mov eax, 4 ; An address in an interupt table, asks where do I write? Ebx has answer
+		mov ebx, stdout ; Prints out to screen
+		mov ecx, %1 ;Thi is the 1 from the parameter
+					; What do I write? The ecx register will tell 
+		mov edx, 1 ; Tells how many bytes to output
 		int 0x80
+		
+		; A register is the MAIN one for sys calls
+		
+		; He mentioned stack frames
+		
 	%endmacro
 
 	%macro pushRegisters 0
@@ -108,6 +143,12 @@ section	.text
 	  mov edi, var1
 	  call print_string
 	  mov edi, msg_lessThan ; put EQUAL message into edi register
+							; edi used as destination index for string operations
+							; esi source index for sring operations, can you give an example using esi?
+							; Your basic explanation of flags?
+							
+							; End of chapter six, walk through code
+							
 	  call print_string
 	  mov edi, var2
 	  call print_string
@@ -153,13 +194,14 @@ section	.text
 	; prints a newline
 	; returns - nothing
 	print_nl:
-	    pushRegisters
+	    pushRegisters ; Values(registers) are saved on trhe STACK
+						; Values are manipulated, this is whyyou need to restore
 	mov eax , 4 		; system call number (sys_write)
 	mov ebx, 1		; file descriptor (stdout)
 	mov ecx, n1		; address of data to print
 	mov edx, 2		; number of bytes to print
 	int 0x80		; do it!
-	popRegisters
+	popRegisters	; Restores saved values
 	ret
 
 	; print_string
@@ -167,11 +209,11 @@ section	.text
 	; C-Style means null terminated
 	; uses		- eax, ebx, ecx, edx
 	; returns - nothing
-	print_string:
+	print_string: ; Going through an "array of chars" to "print string"
 		pushRegisters
 		mov ecx, edi
 		checknull:
-		cmp byte [ecx], null
+		cmp byte [ecx], null ; whil data pointed to is NOT NULL, then print that byte
 		jz endstring
 		    print_char ecx
 		    inc ecx
@@ -182,8 +224,4 @@ section	.text
 
 
 
-	    
-
-
-
-
+	    ; Micro-code interpreter
