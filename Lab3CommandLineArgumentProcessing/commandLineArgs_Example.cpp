@@ -21,14 +21,14 @@ int main( int argc, char ** argv ){
 	// If there is only one argument, which means ONLY the file name was provided
 	// Ex: ./a.out
 	if (argc == 1) { 
-		cout << "No arguments entered, I'm done" << endl;
+		cout << "Error: No arguments entered, I'm done" << endl;
 	}
 	
-	else if (argc == 2) { 
-		cout << "Please enter more than 3 numerical arguments" << endl;
+	else if (argc == 2 || argc == 3) { 
+		cout << "Error: Please enter more than 3 numerical arguments" << endl;
 	}
 	
-	
+	/**
 	else if( argc == 3 ){
 
 		
@@ -62,7 +62,7 @@ int main( int argc, char ** argv ){
 		cout << "The average is " << sum / 2 << endl;
 		cout << "The range is " << 1 << endl;
 	}
-
+*/
 	
 	else if( argc == 4 ){
 		int x = atoi( argv[ 1 ] );
@@ -236,7 +236,7 @@ int main( int argc, char ** argv ){
 	}
 
 	else{
-		cout << "ERROR: run the program and enter either 2 or 3 decimal value command line arguments\n"
+		cout << "ERROR: You have entered more than 10 numerical arguments"
 		<< endl;
 	}
 	exit( 0 );
