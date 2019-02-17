@@ -1,4 +1,5 @@
 #include <iostream>
+#include <array>
 using namespace std;
 
 
@@ -16,6 +17,8 @@ using namespace std;
 // char argv, a matrix containing he argument
 int main( int argc, char ** argv ){
 
+	
+
 	// If there is only one argument, which means ONLY the file name was provided
 	// Ex: ./a.out
 	if (argc == 1) { 
@@ -23,9 +26,25 @@ int main( int argc, char ** argv ){
 	}
 	if( argc == 3 ){
 
+		
 		// Atoi converts a string to integer, parses a c-string interpreting its content as an integral number,and is returned as an int
 		int x = atoi( argv[ 1 ] ); 
 		int y = atoi( argv[ 2 ] );
+
+		int valuesArray [2] = {x,y};
+
+		for(int i=0; i < 2; i++){
+
+			cout << valuesArray[i] << endl;
+			/**
+			if(valuesArray[i] < -100 || valuesArray[i] > 100){
+				cout << "You have entered a value outside of the range -100 to 100";
+				return 0;
+			}
+			*/
+		}
+
+		
 		cout << x << " and " << y << " were received through command line\n";
 		cout << "x * y = " << x << " * " << y << " = " << ( x * y ) << endl;
 	}
