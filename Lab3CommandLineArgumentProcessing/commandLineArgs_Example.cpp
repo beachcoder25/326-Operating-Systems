@@ -22,9 +22,15 @@ int main( int argc, char ** argv ){
 	// If there is only one argument, which means ONLY the file name was provided
 	// Ex: ./a.out
 	if (argc == 1) { 
-		cout << "Usage: ./program_name arg1" << endl;
+		cout << "No arguments entered, I'm done" << endl;
 	}
-	if( argc == 3 ){
+	
+	else if (argc == 2) { 
+		cout << "Please enter more than 3 numerical arguments" << endl;
+	}
+	
+	
+	else if( argc == 3 ){
 
 		
 		// Atoi converts a string to integer, parses a c-string interpreting its content as an integral number,and is returned as an int
@@ -32,10 +38,20 @@ int main( int argc, char ** argv ){
 		int y = atoi( argv[ 2 ] );
 
 		int valuesArray [2] = {x,y};
+		int sum = 0;
 
 		for(int i=0; i < 2; i++){
 
-			cout << valuesArray[i] << endl;
+			int currentInt = valuesArray[i];
+			cout << currentInt << endl;
+			
+			if(currentInt > 100 || currentInt < -100){
+				cout << "Value: " << valuesArray[i] << " is out of range, please enter digits between -100 and 100" << endl;
+				return 0;
+			}
+
+			sum = sum + valuesArray[i];
+			
 			/**
 			if(valuesArray[i] < -100 || valuesArray[i] > 100){
 				cout << "You have entered a value outside of the range -100 to 100";
@@ -44,9 +60,17 @@ int main( int argc, char ** argv ){
 			*/
 		}
 
+		cout << "The numbers are being buffered as follows: " << endl;
+		for(int i = 0; i < 2; i++){
+			cout << "numbersArray[ " << i << " ] = " << valuesArray[i] << endl;
+		}
+
 		
 		cout << x << " and " << y << " were received through command line\n";
 		cout << "x * y = " << x << " * " << y << " = " << ( x * y ) << endl;
+		cout << "The sum is " << sum << endl;
+		cout << "The average is " << sum / 2 << endl;
+		cout << "The range is " << 1 << endl;
 	}
 	else if( argc == 4 ){
 		int x = atoi( argv[ 1 ] );
