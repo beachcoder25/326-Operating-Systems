@@ -1,20 +1,4 @@
-Skip to content
- 
-Search or jump to…
 
-Pull requests
-Issues
-Marketplace
-Explore
- @beachcoder25 Sign out
-0
-0 0 beachcoder25/326-Operating-Systems
- Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
-326-Operating-Systems/Lab2/lab2.asm
-a0030c7  a day ago
-@beachcoder25 beachcoder25 Lab2 completed!
-     
-190 lines (141 sloc)  3.73 KB
 
 ;;;; SYMBOLIC CONSTANT DEFINITIONS
 
@@ -104,6 +88,7 @@ section	.text
 	GLOBAL _start		;must be declared for using gcc
 	_start:
 
+	;;; Ask for input
 	mov edi, msg_prompt1
 	call  print_string
 
