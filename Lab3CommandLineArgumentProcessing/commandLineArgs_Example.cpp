@@ -1,5 +1,4 @@
 #include <iostream>
-#include <array>
 using namespace std;
 
 
@@ -43,7 +42,7 @@ int main( int argc, char ** argv ){
 		for(int i=0; i < 2; i++){
 
 			int currentInt = valuesArray[i];
-			cout << currentInt << endl;
+			
 			
 			if(currentInt > 100 || currentInt < -100){
 				cout << "Value: " << valuesArray[i] << " is out of range, please enter digits between -100 and 100" << endl;
@@ -52,12 +51,6 @@ int main( int argc, char ** argv ){
 
 			sum = sum + valuesArray[i];
 			
-			/**
-			if(valuesArray[i] < -100 || valuesArray[i] > 100){
-				cout << "You have entered a value outside of the range -100 to 100";
-				return 0;
-			}
-			*/
 		}
 
 		cout << "The numbers are being buffered as follows: " << endl;
@@ -65,21 +58,183 @@ int main( int argc, char ** argv ){
 			cout << "numbersArray[ " << i << " ] = " << valuesArray[i] << endl;
 		}
 
-		
-		cout << x << " and " << y << " were received through command line\n";
-		cout << "x * y = " << x << " * " << y << " = " << ( x * y ) << endl;
 		cout << "The sum is " << sum << endl;
 		cout << "The average is " << sum / 2 << endl;
 		cout << "The range is " << 1 << endl;
 	}
+
+	
 	else if( argc == 4 ){
 		int x = atoi( argv[ 1 ] );
 		int y = atoi( argv[ 2 ] );
 		int z = atoi( argv[ 3 ] );
-		cout << x << ", " << y << " and " << z << " were received through command line\n";
-		cout << "x + y + z = " << x << " + " << y << " + " << z 
-		<< " = " << ( x + y + z ) << endl;
+
+		int valuesArray [3] = {x,y,z};
+		int sum = 0;
+
+		for(int i=0; i < 3; i++){
+
+			int currentInt = valuesArray[i];
+			
+			if(currentInt > 100 || currentInt < -100){
+				cout << "Value: " << valuesArray[i] << " is out of range, please enter digits between -100 and 100" << endl;
+				return 0;
+			}
+
+			sum = sum + valuesArray[i];
+			
+		}
+
+		cout << "The numbers are being buffered as follows: " << endl;
+		for(int i = 0; i < 3; i++){
+			cout << "numbersArray[ " << i << " ] = " << valuesArray[i] << endl;
+		}
+
+		cout << "The sum is " << sum << endl;
+		cout << "The average is " << sum / 3 << endl;
+		cout << "The range is " << 2 << endl;
+
 	}
+
+	else if( argc == 5 ){
+		int x = atoi( argv[ 1 ] );
+		int y = atoi( argv[ 2 ] );
+		int z = atoi( argv[ 3 ] );
+		int a = atoi( argv[ 4 ] );
+
+		int valuesArray [4] = {x,y,z,a};
+		int sum = 0;
+
+		for(int i=0; i < 4; i++){
+
+			int currentInt = valuesArray[i];
+			
+			if(currentInt > 100 || currentInt < -100){
+				cout << "Value: " << valuesArray[i] << " is out of range, please enter digits between -100 and 100" << endl;
+				return 0;
+			}
+
+			sum = sum + valuesArray[i];
+			
+		}
+
+		cout << "The numbers are being buffered as follows: " << endl;
+		for(int i = 0; i < 4; i++){
+			cout << "numbersArray[ " << i << " ] = " << valuesArray[i] << endl;
+		}
+
+		cout << "The sum is " << sum << endl;
+		cout << "The average is " << sum / 4 << endl;
+		cout << "The range is " << 3 << endl;
+
+	}
+
+	else if( argc == 6 ){
+		int x = atoi( argv[ 1 ] );
+		int y = atoi( argv[ 2 ] );
+		int z = atoi( argv[ 3 ] );
+		int a = atoi( argv[ 4 ] );
+		int b = atoi( argv[ 5 ] );
+
+		int valuesArray [5] = {x,y,z,a,b};
+		int sum = 0;
+
+		for(int i=0; i < 5; i++){
+
+			int currentInt = valuesArray[i];
+			
+			if(currentInt > 100 || currentInt < -100){
+				cout << "Value: " << valuesArray[i] << " is out of range, please enter digits between -100 and 100" << endl;
+				return 0;
+			}
+
+			sum = sum + valuesArray[i];
+			
+		}
+
+		cout << "The numbers are being buffered as follows: " << endl;
+		for(int i = 0; i < 5; i++){
+			cout << "numbersArray[ " << i << " ] = " << valuesArray[i] << endl;
+		}
+
+		cout << "The sum is " << sum << endl;
+		cout << "The average is " << sum / 5 << endl;
+		cout << "The range is " << 4 << endl;
+
+	}
+
+	else if( argc == 7 ){
+		int x = atoi( argv[ 1 ] );
+		int y = atoi( argv[ 2 ] );
+		int z = atoi( argv[ 3 ] );
+		int a = atoi( argv[ 4 ] );
+		int b = atoi( argv[ 5 ] );
+		int c = atoi( argv[ 6 ] );
+
+		int valuesArray [6] = {x,y,z,a,b,c};
+		int sum = 0;
+
+		for(int i=0; i < 6; i++){
+
+			int currentInt = valuesArray[i];
+			
+			if(currentInt > 100 || currentInt < -100){
+				cout << "Value: " << valuesArray[i] << " is out of range, please enter digits between -100 and 100" << endl;
+				return 0;
+			}
+
+			sum = sum + valuesArray[i];
+			
+		}
+
+		cout << "The numbers are being buffered as follows: " << endl;
+		for(int i = 0; i < 6; i++){
+			cout << "numbersArray[ " << i << " ] = " << valuesArray[i] << endl;
+		}
+
+		cout << "The sum is " << sum << endl;
+		cout << "The average is " << sum / 6 << endl;
+		cout << "The range is " << 5 << endl;
+
+	}
+
+	else if( argc == 8 ){
+		int x = atoi( argv[ 1 ] );
+		int y = atoi( argv[ 2 ] );
+		int z = atoi( argv[ 3 ] );
+		int a = atoi( argv[ 4 ] );
+		int b = atoi( argv[ 5 ] );
+		int c = atoi( argv[ 6 ] );
+		int d = atoi( argv[ 7 ] );
+
+		int valuesArray [7] = {x,y,z,a,b,c,d};
+		double sum = 0;
+
+		for(int i=0; i < 7; i++){
+
+			int currentInt = valuesArray[i];
+			
+			if(currentInt > 100 || currentInt < -100){
+				cout << "Value: " << valuesArray[i] << " is out of range, please enter digits between -100 and 100" << endl;
+				return 0;
+			}
+
+			sum = sum + valuesArray[i];
+			
+		}
+
+		cout << "The numbers are being buffered as follows: " << endl;
+		for(int i = 0; i < 7; i++){
+			cout << "numbersArray[ " << i << " ] = " << valuesArray[i] << endl;
+		}
+
+		cout << "The sum is " << sum << endl;
+		//double sumDub = (double)sum;
+		cout << "The average is " << sum / 7 << endl;
+		cout << "The range is " << 6 << endl;
+
+	}
+
 	else{
 		cout << "ERROR: run the program and enter either 2 or 3 decimal value command line arguments\n"
 		<< endl;
