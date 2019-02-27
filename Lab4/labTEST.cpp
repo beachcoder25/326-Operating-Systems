@@ -33,9 +33,23 @@ int main(){
         // CHILD 1
 
 
-        // STEP 5 child3 displays contents of hello.cpp (more hello.cpp)
-        char *cwd = getcwd(NULL, 0); // Gets current working directory
-        execlp("ls", "ls", "-l", cwd, NULL);
+        
+        // char *cwd = getcwd(NULL, 0); // Gets current working directory
+
+        // Step 3
+        // WORKS!!!
+        // execlp("/bin/ls","ls","-l", NULL);
+        
+        
+        // Step 5
+        // WORKS!!!
+        // execlp("/bin/more","more","hello.cpp", NULL);
+
+        // Step 7
+        // DIDNT't WORK!!!
+        execlp("/bin/g++","g++","hello.cpp","-o","-hello.out", NULL);
+
+    
 
     }
 

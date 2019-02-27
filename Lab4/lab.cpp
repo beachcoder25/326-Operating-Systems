@@ -55,6 +55,8 @@ int main(){
                 // CHILD 2
 
                 // STEP 3 child2 displays a long list of the present working directory contents (ls -l)
+                // WORKS!!!
+
                 char *cwd = getcwd(NULL, 0); // Gets current working directory
                 execlp("ls", "ls", "-l", cwd, NULL);
 
@@ -100,8 +102,8 @@ int main(){
                 // CHILD 3
 
                 // STEP 5 child3 displays contents of hello.cpp (more hello.cpp)
-                char *cwd = getcwd(NULL, 0); // Gets current working directory
-                execlp("ls", "ls", "-l", cwd, NULL);
+                
+                execlp("/bin/more","more","hello.cpp", NULL);
 
 
             }
