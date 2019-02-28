@@ -10,6 +10,7 @@ int main(){
 
     // STEP 1: Forks and makes the parent wait for it's child (child1)
     pid = fork(); 
+    
 
     if(pid < 0){
 
@@ -88,7 +89,7 @@ int main(){
             else if(pid3 == 0)
             { 
                 // CHILD4
-                cout << "INSIDE CHILD4\n";
+                
                 //execlp("more", "more", "hello.cpp", NULL);
                 execlp("g++", "g++", "hello.cpp", "-o", "hello.out", NULL);
             
@@ -97,14 +98,19 @@ int main(){
             else{
                 // CHILD1 waiting for CHILD4
                 wait(&pid3); // Only wait if pd > 0 i.e inside parent
+                cout << "CHILD1: doing ./hello.out 2\n";
+
+                execlp("./hello.out", "./hello.out", "2", NULL);
+                
                         
             }
     }
 
     else{
 
+        cout << "PARENT: Waiting for child to exit...\n";
         wait(&pid);
-        cout << "Child finally exited\n";
+        cout << "\nPARENT: Child finally exited\n";
     }
 
     
