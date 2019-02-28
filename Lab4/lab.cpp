@@ -15,20 +15,13 @@ int main(){
 
         cout << "Error: Fork failed!\n";    // Pid should not be less than 0, 
                                             // means neither parent nor child
-
-        if(execlp( "./repeatHello.out", ".repeatHello.out", "3", NULL) == - 1){
-
-            cout << "Error: exec failed!\n"; // Ask about what is happening here...
-            _exit(1);
-        }
     }
  
 
-
-
     // STEP 2: Child1 then forks and waits for it's first child (child2)
 
-    else if(pid == 0){ /* child process */
+    else if(pid == 0)
+    { 
 
         // CHILD 1
 
@@ -36,103 +29,85 @@ int main(){
 
             // STEP 2: Child1 then forks and waits for it's first child (child2)
 
-            pid1 = fork(); 
+            cout << "CHILD1: About to fork and show long list of directory contents\n";
+            pid1 = fork(); // CHILD2 created
 
-            if(pid1 < 0){
+
+            if(pid1 == 0){
+
+                //STEP3: Child2 displaying long list of directory contents
+
+                execlp("ls", "ls", "-l", NULL);
+            }
+
+            else{
+
+                // CHILD1: Waiting for CHILD2
+                wait(&pid1); // Only wait if pd > 0 i.e inside parent
+            }
+
+            pid_t pid2;
+            cout << "CHILD1: about fork and show hello.cpp contents\n";
+            pid2 = fork(); // CHILD3
+
+
+            if(pid2 < 0){
 
                 cout << "Error: Fork failed!\n";    // Pid should not be less than 0, 
                                                     // means neither parent nor child
-
-                if(execlp( "./repeatHello.out", ".repeatHello.out", "3", NULL) == - 1){
-
-                    cout << "Error: exec failed!\n"; // Ask about what is happening here...
-                    _exit(1);
-                }
             }
         
-            else if(pid1 == 0){ /* child process */
 
-                // CHILD 2
+            // STEP 2: Child1 then forks and waits for it's first child (child2)
 
-                // STEP 3 child2 displays a long list of the present working directory contents (ls -l)
-                // WORKS!!!
+            else if(pid2 == 0)
+            { 
+                // CHILD3
 
-                char *cwd = getcwd(NULL, 0); // Gets current working directory
-                execlp("ls", "ls", "-l", cwd, NULL);
-
-
+                execlp("more", "more", "hello.cpp", NULL);
+            
             }
 
-            else{ // positive pid means this is a parent process
-                
-                // CHILD 1
+            else{
+                // CHILD1 waiting for CHILD3
+                wait(&pid2); // Only wait if pd > 0 i.e inside parent
+                        
+            }
+
+            pid_t pid3;
+            cout << "CHILD1: about fork and compile hello.cpp\n";
+            pid3 = fork(); // CHILD4
 
 
-                cout << "\nParent: Waiting for child to exit...\n";
-                wait(&pid1); // Only wait if pd > 0 i.e inside parent
-                cout << "\nParent: Child2 finally finally exited";
-                pid_t pid2;
+            if(pid3 < 0){
 
-
-
-
-
-
-
-
-                // STEP 4: Child1 then forks and waits for it's next child (child3)
-
-                pid2 = fork(); 
-
-
-                if(pid1 < 0){
-
-                    cout << "Error: Fork failed!\n";    // Pid should not be less than 0, 
+                cout << "Error: Fork failed!\n";    // Pid should not be less than 0, 
                                                     // means neither parent nor child
-
-                    if(execlp( "./repeatHello.out", ".repeatHello.out", "3", NULL) == - 1){
-
-                    cout << "Error: exec failed!\n"; // Ask about what is happening here...
-                    _exit(1);
-                }
             }
         
-            else if(pid1 == 0){ /* child process */
-
-                // CHILD 3
-
-                // STEP 5 child3 displays contents of hello.cpp (more hello.cpp)
-                
-                execlp("/bin/more","more","hello.cpp", NULL);
-
-
+            else if(pid3 == 0)
+            { 
+                // CHILD4
+                cout << "INSIDE CHILD4\n";
+                //execlp("more", "more", "hello.cpp", NULL);
+                execlp("g++", "g++", "hello.cpp", "-o", "hello.out", NULL);
+            
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-                
+            else{
+                // CHILD1 waiting for CHILD4
+                wait(&pid3); // Only wait if pd > 0 i.e inside parent
+                        
             }
     }
 
-    else{ // positive pid means this is a parent process
-        
-        cout << "\nParent: Waiting for child to exit...\n";
-        wait(&pid); // Only wait if pd > 0 i.e inside parent
-        cout << "\nParent: Child finally finally exited";
+    else{
 
-
+        wait(&pid);
+        cout << "Child finally exited\n";
     }
 
-    _exit(0);
+    
+
+    exit(0);
 }
-
