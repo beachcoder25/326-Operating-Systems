@@ -5,17 +5,23 @@
 using namespace std;
 
 int main(){
-	//string write_msg, msg_read;
-    int write_num, num_read;
+	string write_msg, msg_read;
+    int write_int, int_read;
+
 	const short MSG_SIZE = 25;
 	
-    // use casting to cast char array value to int
     char msg_write[ MSG_SIZE ];
 	char read_msg[ MSG_SIZE ];
+    int int_write[ MSG_SIZE ];
+	char read_int[ MSG_SIZE ];
+
+
 	int fd[2];
 	pid_t pid;
 	pipe( fd );
 	pid = fork();
+
+
 	if( pid > 0 ){	// in parent
 		cout	<< "Process: "
 				<< getpid()
@@ -25,8 +31,9 @@ int main(){
 				<< pid
 				<< endl;
 			close( fd[0] );	// close unused Read End
+
 		while( write_msg != "done" ){
-			cout << "Enter a message to send: ";
+			cout << "Enter a integer less than 100 to send: ";
 			cin >> write_msg;
 			cout << "In parent, sending: " << write_msg << endl;
 			unsigned int size = write_msg.length();
@@ -50,7 +57,8 @@ int main(){
 		while( msg_read != "done" ){
 			read( fd[0], read_msg, MSG_SIZE );
 			cout << "In child, msg read: " << read_msg << endl;
-			msg_read = read_msg;
+            
+			int_read = atoi(read_msg);
 		}
 		close( fd[0] );	// all done, close the pipe!
 		cout << "Child process about to exit\n";
