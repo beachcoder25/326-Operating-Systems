@@ -9,6 +9,7 @@ int main(){
 	int write_int, int_read, count, total; 
 	int num1 = -1;
 	int num2 = -1;
+	int exitNum = -1;
 	int *num1pointer = &num1;
 	int *num2pointer = &num2;
 
@@ -24,13 +25,7 @@ int main(){
 
 
 	if( pid > 0 ){	// in parent
-		// cout	<< "Process: "
-		// 		<< getpid()
-		// 		<< " is now a parent!"
-		// 		<< endl
-		// 		<< "Parent is preparing to communicate with the child: "
-		// 		<< pid
-		// 		<< endl;
+	
 		 	close( fd[0] );	// close unused Read End
 
 
@@ -51,12 +46,7 @@ int main(){
 		cout << "Parent process about to exit\n";
 	}
 	else{
-		// cout	<< "Child process: "
-		// 		<< getpid()
-		// 		<< " has been created!\n"
-		// 		<< "child process preparing to get data from parent process: "
-		// 		<< getppid()
-		// 		<< endl;
+		
 		close( fd [1] );	// close unused write end
 		
 		// Use a counter for while loop, once count == 3 break
@@ -94,6 +84,7 @@ int main(){
 				if(msg_read == "+"){
 				total = *num1pointer + num2;
 				cout << num1 << " + " << num2 << " = " << total << endl;
+				exitNum = 99;
 				break;
 
 				}
@@ -101,6 +92,7 @@ int main(){
 				else if(msg_read == "-"){
 				total = num1 - num2;
 				cout << num1 << " - " << num2 << " = " << total << endl;
+				exitNum = 99;
 				break;
 
 			}
@@ -109,21 +101,7 @@ int main(){
 			}
 			
 
-			
-			// If statements for parsing in put
-			// if(read_msg != "+" || read_msg != "-"){
-			// 	cout << "RECEIVED: " << read_msg << endl;
-			// 	int_read = atoi(read_msg);
-			// 	cout << "Received an int" << endl;
-			// }
-
-			// else{
-			// 	cout << "RECEIVED: " << read_msg << endl;
-			// 	msg_read = read_msg;
-			// 	cout << "Received a string" << endl;
-			// }
-			
-			
+						
 		}
 		close( fd[0] );	// all done, close the pipe!
 		cout << "Child process about to exit\n";
