@@ -25,11 +25,27 @@ int main(){
 	void *ptr;
 	bool anotherRound = true;
 	shm_fd = shm_open(name, O_RDWR, 0666); // Step1: Open shared memory region
+	//shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
+	//p 131
+	// First parameter name of shared-menory object
 
 
+
+
+
+    // QUESTION
+	// Configure size of memory object... Necessary?
+	// ftruncate(shm_fd, SIZE);
+
+
+	// STEP 2 CORRECT?
 	// Step 2: Read a short integer value from base address of the shared memory region
 	
-	// Questions:
+	// read from a shared memory object
+	printf("%s", (char *)ptr);
+	cout << "Message received"  << (char *)ptr << endl;
+	
+	//QUESTIONS:
 
 	// Do we need to create the struct buf? 
 	// If so I believe char messageBuffer would go in there/be re-defined in there...?
@@ -56,9 +72,9 @@ int main(){
 		exit(-1);
 	}
 
-	cout << "Message received"  << (char *)ptr << endl;
+	// cout << "Message received"  << (char *)ptr << endl;
 	
-	if(shm_unlink(name) == -1){
+	if(shm_unlink(name) == -1){ // Remove shared memory object p133
 		cout << "CLEANER: ERROR: Error removing shared memory region" << name << endl;
 		exit(-1);
 	}
