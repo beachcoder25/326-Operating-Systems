@@ -15,6 +15,7 @@
 #include <iostream>
 using namespace std;
 
+
 int main(){
 
 	const int SIZE = 128;
@@ -35,16 +36,33 @@ int main(){
 
     // QUESTION
 	// Configure size of memory object... Necessary?
-	// ftruncate(shm_fd, SIZE);
+	// ftruncate(shm_fd, SIZE); So you do not have too much memory
 
+	// memory map the shared memory object
+	ptr = mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
 
 	// STEP 2 CORRECT?
 	// Step 2: Read a short integer value from base address of the shared memory region
-	
+	short *num = (short *)ptr; // This points to shared memory, this "reads" it
 	// read from a shared memory object
-	printf("%s", (char *)ptr);
-	cout << "Message received"  << (char *)ptr << endl;
+	printf("%s", (short *)ptr);
+
+	cout << "Message received"  << *num << endl;
+
+	// STEP 4
+
 	
+	*num = *num % 2; // 0 if even, NOT 0 if odd
+
+	if(*num == 0){ // If even
+		*num =  *num / 2;
+	}
+
+	else if(*num != 0){ // If odd
+		*num = (3 * (*num)) + 1;
+
+	}
+
 	//QUESTIONS:
 
 	// Do we need to create the struct buf? 
@@ -64,8 +82,7 @@ int main(){
 		exit(-1);
 	}
 
-	// memory map the shared memory object
-	ptr = mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
+	
 
 	if(ptr == MAP_FAILED){
 		cout << "ERROR: Map failed\n";
