@@ -18,7 +18,8 @@ int main(){
 	char read_msg[ MSG_SIZE ];
 
 
-	int fd[2], parentCount, childCount;
+	int fd[2], childCount;
+	int parentCount = 0;
 	pid_t pid;
 	pipe( fd );
 	pid = fork();
@@ -31,9 +32,18 @@ int main(){
 
 		while( write_msg != "done" ){
 		//while(parentCount < 3){
+
+			if(parentCount == 3){
+				close( fd[1] );	// all done, close the pipe!
+				cout << "Parent process about to exit\n";
+				exit(0);
+			}
 			cout << "PARENT: Enter a message to send: ";
 			cin >> write_msg;
-			cout << "PARENT, sending: " << write_msg << endl;
+			
+			parentCount ++;
+			cout << "Pcount" << parentCount << endl;
+			// cout << "PARENT, sending: " << write_msg << endl; CHECKING COUNT WORKS
 			unsigned int size = write_msg.length();
 			write_msg.copy( msg_write, write_msg.length(), 0 );
 			write( fd[1], msg_write, MSG_SIZE );
@@ -57,6 +67,12 @@ int main(){
 
 			if(num1 == -1){
 				num1 = atoi(read_msg);
+				
+				// Check to make sure proper digit entered
+				if(num1 < 0 || num1 > 99){
+					cout << "ERROR: Program can only process positive digits less than 100, please start over" << endl;
+					break;
+				}
 				num1pointer = &num1;
 				cout << "CHILD: Value A = " << num1 << endl;
 				
@@ -79,12 +95,20 @@ int main(){
 
 			else if(num2 == -1){
 				num2 = atoi(read_msg);
+
+				// Check to make sure proper digit entered
+				if(num2 < 0 || num2 > 99){
+					cout << "ERROR: Program can only process positive digits less than 100, please start over" << endl;
+					break;
+				}
+
 				cout << "CHILD: Value B = " << num1 << endl;
 
 				if(msg_read == "+"){
 				total = *num1pointer + num2;
 				cout << num1 << " + " << num2 << " = " << total << endl;
 				exitNum = 99;
+				parentCount = 3;
 				break;
 
 				}
@@ -93,6 +117,7 @@ int main(){
 				total = num1 - num2;
 				cout << num1 << " - " << num2 << " = " << total << endl;
 				exitNum = 99;
+				parentCount =3;
 				break;
 
 			}
