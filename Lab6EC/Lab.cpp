@@ -16,7 +16,12 @@ using namespace std;
 // char argv, a matrix containing he argument
 int main( int argc, char ** argv ){
 
-	
+	// Tells us number of children
+	int numChildren = atoi(argv[1]); // Check if it should be argv[0]
+
+
+	// Figuring out how to read in args for each child
+
 
 	// If there is only one argument, which means ONLY the file name was provided
 	// Ex: ./a.out
