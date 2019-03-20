@@ -9,7 +9,7 @@ int main(){
     pid_t pid;
 
     // STEP 1: Forks and makes the parent wait for it's child (child1)
-    pid = fork(); 
+    pid = fork();
 
     if(pid < 0){
 
@@ -17,9 +17,8 @@ int main(){
                                             // means neither parent nor child
 
         if(execlp( "./repeatHello.out", ".repeatHello.out", "3", NULL) == - 1){
-
             cout << "Error: exec failed!\n"; // Ask about what is happening here...
-            _exit(1);
+            exit(1);
         }
     }
  
@@ -47,7 +46,9 @@ int main(){
 
         // Step 7
         // DIDNT't WORK!!!
-        execlp("/bin/g++","g++","hello.cpp","-o","-hello.out", NULL);
+        cout << "Child running";
+        execlp("g++", "g++","hello.cpp","-o","-hello.out", NULL);
+        // cout << "TEST";
 
     
 
@@ -62,6 +63,6 @@ int main(){
 
     }
 
-    _exit(0);
+    exit(0);
 }
 

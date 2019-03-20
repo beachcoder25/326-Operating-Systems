@@ -26,15 +26,15 @@ int main(){
 
         // CHILD 1
 
-            pid_t pid1;
+            //pid_t pid;
 
             // STEP 2: Child1 then forks and waits for it's first child (child2)
 
             cout << "CHILD1: About to fork and show long list of directory contents\n";
-            pid1 = fork(); // CHILD2 created
+            pid = fork(); // CHILD2 created
 
 
-            if(pid1 == 0){
+            if(pid == 0){
 
                 //STEP3: Child2 displaying long list of directory contents
 
@@ -44,15 +44,15 @@ int main(){
             else{
 
                 // CHILD1: Waiting for CHILD2
-                wait(&pid1); // Only wait if pd > 0 i.e inside parent
+                wait(&pid); // Only wait if pd > 0 i.e inside parent
             }
 
-            pid_t pid2;
+            //pid_t pid;
             cout << "CHILD1: about fork and show hello.cpp contents\n";
-            pid2 = fork(); // CHILD3
+            pid = fork(); // CHILD3
 
 
-            if(pid2 < 0){
+            if(pid < 0){
 
                 cout << "Error: Fork failed!\n";    // Pid should not be less than 0, 
                                                     // means neither parent nor child
@@ -61,7 +61,7 @@ int main(){
 
             // STEP 2: Child1 then forks and waits for it's first child (child2)
 
-            else if(pid2 == 0)
+            else if(pid == 0)
             { 
                 // CHILD3
 
@@ -71,22 +71,22 @@ int main(){
 
             else{
                 // CHILD1 waiting for CHILD3
-                wait(&pid2); // Only wait if pd > 0 i.e inside parent
+                wait(&pid); // Only wait if pd > 0 i.e inside parent
                         
             }
 
-            pid_t pid3;
+            //pid_t pid;
             cout << "CHILD1: about fork and compile hello.cpp\n";
-            pid3 = fork(); // CHILD4
+            pid = fork(); // CHILD4
 
 
-            if(pid3 < 0){
+            if(pid < 0){
 
                 cout << "Error: Fork failed!\n";    // Pid should not be less than 0, 
                                                     // means neither parent nor child
             }
         
-            else if(pid3 == 0)
+            else if(pid == 0)
             { 
                 // CHILD4
                 
@@ -97,7 +97,7 @@ int main(){
 
             else{
                 // CHILD1 waiting for CHILD4
-                wait(&pid3); // Only wait if pd > 0 i.e inside parent
+                wait(&pid); // Only wait if pd > 0 i.e inside parent
                 cout << "CHILD1: doing ./hello.out 2\n";
 
                 execlp("./hello.out", "./hello.out", "2", NULL);

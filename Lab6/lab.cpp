@@ -25,61 +25,44 @@ int main(){
 	int shm_fd;
 	void *ptr;
 	bool anotherRound = true;
-	shm_fd = shm_open(name, O_RDWR, 0666); // Step1: Open shared memory region
-	//shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666);
-	//p 131
-	// First parameter name of shared-menory object
+	
+	shm_fd = shm_open(name, O_CREAT | O_RDWR, 0666); // Step1: Open shared memory region
+	
+	if(shm_fd == -1){
+		cout << "CLEANER: ERROR: Opening shared memory failed\n";
+		exit(-1);
+	}
 
-
-
-
-
-    // QUESTION
-	// Configure size of memory object... Necessary?
-	// ftruncate(shm_fd, SIZE); So you do not have too much memory
+	cout << "shm_fd: " << shm_fd << endl;
 
 	// memory map the shared memory object
-	ptr = mmap(0, SIZE, PROT_READ, MAP_SHARED, shm_fd, 0);
+	ptr = mmap(0, SIZE, PROT_READ | PROT_WRITE, MAP_SHARED, shm_fd, 0);
 
 	// STEP 2 CORRECT?
 	// Step 2: Read a short integer value from base address of the shared memory region
-	short *num = (short *)ptr; // This points to shared memory, this "reads" it
-	// read from a shared memory object
-	printf("%s", (short *)ptr);
 
-	cout << "Message received"  << *num << endl;
+	short *num = (short *)ptr; // This points to shared memory, this "reads" it
+	
+	// read from a shared memory object
+	printf("Num Received: %i\n", *num);
+
+	cout << "Message received: "  << *num << endl;
 
 	// STEP 4
 
-	
 	*num = *num % 2; // 0 if even, NOT 0 if odd
 
 	if(*num == 0){ // If even
 		*num =  *num / 2;
+		ptr = mmap(0, SIZE, PROT_WRITE, MAP_SHARED, shm_fd, 0);
+		//sprintf((char *)ptr, "%s\n");
 	}
 
 	else if(*num != 0){ // If odd
 		*num = (3 * (*num)) + 1;
+		ptr = mmap(0, SIZE, PROT_WRITE, MAP_SHARED, shm_fd, 0);
+		//sprintf((char *)ptr, "%s\n");
 
-	}
-
-	//QUESTIONS:
-
-	// Do we need to create the struct buf? 
-	// If so I believe char messageBuffer would go in there/be re-defined in there...?
-
-	// struct buf{
-	// 	long mtype;
-	// 	char msgBuffer[5]; // Message data
-	// } msg;
-
-	// Do we need to create the queue? I dont think so, but am unsure of how we would receive without it
-
-	// int qid = msgget(ftok(".", 'Z'), IPC_EXCL | IPC_CREAT | 0600);
-
-	if(shm_fd == -1){
-		cout << "CLEANER: ERROR: Opening shared memory failed\n";
-		exit(-1);
 	}
 
 	
