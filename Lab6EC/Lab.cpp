@@ -16,11 +16,80 @@ using namespace std;
 // char argv, a matrix containing he argument
 int main( int argc, char ** argv ){
 
+	// Need a pipe to each individual child
+
+	// QUESTION!!!
+	// We assume that they at least enter args for >= 1 children, correct? Yes correct
+
 	// Tells us number of children
-	int numChildren = atoi(argv[1]); // Check if it should be argv[0]
+	int numChildProcesses = atoi(argv[1]); // Check if it should be argv[0]
+
+	// QUESTION!!!
+	// Kind of confused on how I can use a while loop to create multiple children
+	// How do I have multiple children inside the while loop? Or should I store them outside
+
+	
+	//WHILE LOOP FOR i < numChildProcesses???
+	// fork() inside?
+
+	while(i < numchildProcesses){
+
+		// create pipe
+		// Assign id to each pipe to track them
+		// We need multiple fd
+
+		// Pass a reference to the specific list
+
+		// Look into if pipe can take more than 2 int array
+	}
+
+	while(int i=0; i < numChildProcesses; i++){
+
+		fork();
+
+		// Dont need to track PIDs
+		// differentiates
+		// Each child reads from diff pipe, must sent to right pipe
+
+		if(pid == 0){
+			// Assign/Associate  data set with proper child
+			// Set up pipe 
+		}
+
+		
+		// Before child goes off
+		// Parent must know which child is created, get data set associated with it
+		// Also a pipe needs to be set up
+	}
+
+	// Break loop and do a function that could be called
+
+
+	// PIDs need to be tracked if you need to a wait
 
 
 	// Figuring out how to read in args for each child
+
+	int childOneArgsNum = atoi(argv[2]); // Check if it should be argv[0]
+
+	// QUESTION!!!
+	// Should I fork before this, or in the loop potentially?
+
+	int childOneArgs[childOneArgsNum];
+
+	// Stores Data set for childOne
+
+	for(int i=0; i < childOneArgsNum; i++){
+
+		childOneArgs[i] = atoi(argv[3 + i]); // Because 3rd arg should be first num, correct?
+
+
+	}
+
+
+	// Get to next childs arguments
+
+	int otherChildArgNum = atoi(argv[2 + childOneArgsNum + 1]); // argv[6] is next childs data set
 
 
 	// If there is only one argument, which means ONLY the file name was provided
