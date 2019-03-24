@@ -15,7 +15,7 @@ using namespace std;
 int main(){
 
 	const int SIZE = 128;
-	const char *name = "Challenge"; // name of the shared memory object
+	const char *name = "Challenge"; // name of the shared memory objects
 
 	char messageBuffer[ 5 ];
 	int shm_fd;
