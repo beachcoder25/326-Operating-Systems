@@ -4,12 +4,12 @@
 #include <sys/types.h>
 #include <time.h>
 using namespace std;
-int value = 0, countSpeed = 0; // QUESTION: Is countSpeed correct for integral???
+int value = 0, countSpeed = 3; // QUESTION: Is countSpeed correct for integral???
 
 void *inputReader( void *param );
 void *countDownThread( void *param );
 char userInput;
-bool enable, countUp;
+bool countEnable = true, countUp = true;
 
 int main( int argc, char ** argv ){
 	// cout << "Initially, value = " << value << endl;
@@ -56,72 +56,62 @@ void *countDownThread( void *param ){
 
 			if(countSpeed == 0){
 
+				cout << "countSpeed = 0\n";
+
 				if(userInput == '+'){
 
-					timing.tv_nsec = 250000000L;	// sleep time 500million nanoseconds
+					timing.tv_nsec = 500000000L;	// sleep time 500million nanoseconds
 					countSpeed = 1;
 				}	
 			}
 
 			else if(countSpeed == 1){
 
-				if(userInput == '+'){
+				cout << "countSpeed = 1\n";
 
-					timing.tv_nsec = 500000000L;	// sleep time 500million nanoseconds
-					countSpeed = 2;
+				if(userInput == '-'){
+
+					timing.tv_sec = 1;
+					countSpeed = 0;
 				}
 
-				else if (userInput == '-'){
+				else if (userInput == '+'){
 
-					timing.tv_nsec = 125000000L;	// sleep time 500million nanoseconds
-					countSpeed = 0;
+					timing.tv_nsec = 250000000L;	
+					countSpeed = 2;
 				}	
 			}
 
 			else if(countSpeed == 2){
 
-				if(userInput == '+'){
+				cout << "countSpeed = 2\n";
 
-					timing.tv_sec = 1;
-					countSpeed = 3;
+				if(userInput == '-'){
+
+					timing.tv_nsec = 500000000L;	// sleep time 500million nanoseconds
+					countSpeed = 1;
 				}
 
-				else if (userInput == '-'){
+				else if (userInput == '+'){
 
-					timing.tv_nsec = 250000000L;
-					countSpeed = 1;
+					timing.tv_nsec = 125000000L;
+					countSpeed = 3;
 				}
 				
 			}
 
 			else if(countSpeed == 3){
 
+				cout << "countSpeed = 3\n";
 				if(userInput == '-'){
 
-					timing.tv_nsec = 500000000L;
+					timing.tv_nsec = 250000000L;
 					countSpeed = 2;
+
 				}				
 			}
 
-			// if(userInput == '+'){
 
-			// 	if(countSpeed == 0){
-
-			// 		timing.tv_nsec = 250000000L;	// sleep time 500million nanoseconds
-
-			// 	}
-
-			// 	// Check the state!!!
-
-			// 	//cout << "Inc" << endl;
-			// }
-
-			// else if(userInput == '-'){
-
-			// 	timing.tv_nsec = 250000000L;	// sleep time 500million nanoseconds
-
-			// 	//cout << "dec" << endl;
-			// }
 
 			cout << ++value << flush;	// flush to make the value display
 			// sleep( 1 );							// wait 1 second
