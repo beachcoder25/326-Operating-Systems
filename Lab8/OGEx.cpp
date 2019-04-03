@@ -49,7 +49,7 @@ void *countDownThread( void *param ){
 	{
 
 
-
+		//
 		while(userInput != 'a'){
 
 
