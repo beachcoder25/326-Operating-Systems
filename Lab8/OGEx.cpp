@@ -4,7 +4,7 @@
 #include <sys/types.h>
 #include <time.h>
 using namespace std;
-int value = 0, speedVal = 0;
+int value = 0, countSpeed = 0; // QUESTION: Is countSpeed correct for integral???
 
 void *inputReader( void *param );
 void *countDownThread( void *param );
@@ -42,6 +42,7 @@ void *countDownThread( void *param ){
 	cout << "!!! Count Down Thread Running!\n";
 	timing.tv_sec = 0;
 	timing.tv_nsec = 125000000L;	// sleep time 500million nanoseconds
+	countSpeed = 3;
 
 	
 	while( value == 0 );	// BLOCK while value equals 0
@@ -50,35 +51,87 @@ void *countDownThread( void *param ){
 
 
 		//
-		while(userInput != 'a'){
+		while(userInput != 'a')
+		{
 
+			if(countSpeed == 0){
 
-			if(userInput == '+'){
+				if(userInput == '+'){
 
-				// Check the state!!!
-
-				timing.tv_nsec = 125000000L;	// sleep time 500million nanoseconds
-
-
-				//cout << "Inc" << endl;
+					timing.tv_nsec = 250000000L;	// sleep time 500million nanoseconds
+					countSpeed = 1;
+				}	
 			}
 
-			else if(userInput == '-'){
+			else if(countSpeed == 1){
 
-				timing.tv_nsec = 250000000L;	// sleep time 500million nanoseconds
+				if(userInput == '+'){
 
-				//cout << "dec" << endl;
+					timing.tv_nsec = 500000000L;	// sleep time 500million nanoseconds
+					countSpeed = 2;
+				}
+
+				else if (userInput == '-'){
+
+					timing.tv_nsec = 125000000L;	// sleep time 500million nanoseconds
+					countSpeed = 0;
+				}	
 			}
 
-		cout << ++value << flush;	// flush to make the value display
-		// sleep( 1 );							// wait 1 second
+			else if(countSpeed == 2){
 
-		nanosleep( &timing, NULL );
-		// cout << "\r                       \r";	// overwrite previous number with spaces
-		cout << "\b\b\b\b\b\b       \b\b\b\b\b\b";	// overwrite previous number with spaces
-		// cout << "\b\b\b\b\b\b";	// backspace over previously  displayed characters
-	}
+				if(userInput == '+'){
 
+					timing.tv_sec = 1;
+					countSpeed = 3;
+				}
+
+				else if (userInput == '-'){
+
+					timing.tv_nsec = 250000000L;
+					countSpeed = 1;
+				}
+				
+			}
+
+			else if(countSpeed == 3){
+
+				if(userInput == '-'){
+
+					timing.tv_nsec = 500000000L;
+					countSpeed = 2;
+				}				
+			}
+
+			// if(userInput == '+'){
+
+			// 	if(countSpeed == 0){
+
+			// 		timing.tv_nsec = 250000000L;	// sleep time 500million nanoseconds
+
+			// 	}
+
+			// 	// Check the state!!!
+
+			// 	//cout << "Inc" << endl;
+			// }
+
+			// else if(userInput == '-'){
+
+			// 	timing.tv_nsec = 250000000L;	// sleep time 500million nanoseconds
+
+			// 	//cout << "dec" << endl;
+			// }
+
+			cout << ++value << flush;	// flush to make the value display
+			// sleep( 1 );							// wait 1 second
+
+			nanosleep( &timing, NULL );
+			// cout << "\r                       \r";	// overwrite previous number with spaces
+			cout << "\b\b\b\b\b\b       \b\b\b\b\b\b";	// overwrite previous number with spaces
+			// cout << "\b\b\b\b\b\b";	// backspace over previously  displayed characters
+		}
+		break;
 		
 	}
 
