@@ -72,6 +72,7 @@ void *countDownThread( void *param ){
 					timing.tv_sec = 0;
 					timing.tv_nsec = 500000000L;	// sleep time 500million nanoseconds
 					countSpeed = 1;
+					userInput = 'x';
 				}	
 			}
 
@@ -84,6 +85,7 @@ void *countDownThread( void *param ){
 					timing.tv_sec = 1;
 					timing.tv_nsec = 000000000L;
 					countSpeed = 0;
+					userInput = 'x';
 				}
 
 				else if (userInput == '+'){
@@ -91,6 +93,7 @@ void *countDownThread( void *param ){
 					timing.tv_sec = 0;
 					timing.tv_nsec = 250000000L;	
 					countSpeed = 2;
+					userInput = 'x';
 				}	
 			}
 
@@ -103,6 +106,7 @@ void *countDownThread( void *param ){
 					timing.tv_sec = 0;
 					timing.tv_nsec = 500000000L;	// sleep time 500million nanoseconds
 					countSpeed = 1;
+					userInput = 'x';
 				}
 
 				else if (userInput == '+'){
@@ -110,6 +114,7 @@ void *countDownThread( void *param ){
 					timing.tv_sec = 0;
 					timing.tv_nsec = 125000000L;
 					countSpeed = 3;
+					userInput = 'x';
 				}
 				
 			}
@@ -134,9 +139,21 @@ void *countDownThread( void *param ){
 					cout << ++value << flush;	// flush to make the value display	
 					nanosleep( &timing, NULL );	
 
+				}
+
+				else{
+
+					cout << --value << flush;	// flush to make the value display
+					nanosleep( &timing, NULL );
 
 				}
 
+			}
+
+			else if (countEnable = false){
+				
+				timing.tv_sec = 0;
+				timing.tv_nsec = 000000000L;
 			}
 
 			//cout << ++value << flush;	// flush to make the value display
