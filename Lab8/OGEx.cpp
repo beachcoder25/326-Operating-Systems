@@ -28,7 +28,7 @@ void *inputReader( void *param ){
 	cout << "!!! Reader Thread Running!\n";
 	cout << "Type an integer value and press the Enter Key at any time (-1 to quit): ";
 	value = 10;	// change value to make countDownThread unblock and begin counting
-	while( value > -1 )
+	while( value > -1 && userInput != 'a')
 		cin >> userInput;	// BLOCKING operation
 	cout << "inputReader thread exited\n";
 	pthread_exit( 0 );
@@ -53,6 +53,15 @@ void *countDownThread( void *param ){
 		//
 		while(userInput != 'a')
 		{
+			if(userInput == 's'){
+
+				countEnable = false;
+			}
+
+			else if(userInput == 'd'){
+
+				countUp = false;
+			}
 
 			if(countSpeed == 0){
 
@@ -60,6 +69,7 @@ void *countDownThread( void *param ){
 
 				if(userInput == '+'){
 
+					timing.tv_sec = 0;
 					timing.tv_nsec = 500000000L;	// sleep time 500million nanoseconds
 					countSpeed = 1;
 				}	
@@ -72,11 +82,13 @@ void *countDownThread( void *param ){
 				if(userInput == '-'){
 
 					timing.tv_sec = 1;
+					timing.tv_nsec = 000000000L;
 					countSpeed = 0;
 				}
 
 				else if (userInput == '+'){
 
+					timing.tv_sec = 0;
 					timing.tv_nsec = 250000000L;	
 					countSpeed = 2;
 				}	
@@ -88,12 +100,14 @@ void *countDownThread( void *param ){
 
 				if(userInput == '-'){
 
+					timing.tv_sec = 0;
 					timing.tv_nsec = 500000000L;	// sleep time 500million nanoseconds
 					countSpeed = 1;
 				}
 
 				else if (userInput == '+'){
 
+					timing.tv_sec = 0;
 					timing.tv_nsec = 125000000L;
 					countSpeed = 3;
 				}
@@ -105,18 +119,30 @@ void *countDownThread( void *param ){
 				cout << "countSpeed = 3\n";
 				if(userInput == '-'){
 
+					timing.tv_sec = 0;
 					timing.tv_nsec = 250000000L;
 					countSpeed = 2;
+					userInput = 'x';
 
 				}				
 			}
 
+			if(countEnable){
+
+				if(countUp){
+
+					cout << ++value << flush;	// flush to make the value display	
+					nanosleep( &timing, NULL );	
 
 
-			cout << ++value << flush;	// flush to make the value display
+				}
+
+			}
+
+			//cout << ++value << flush;	// flush to make the value display
 			// sleep( 1 );							// wait 1 second
 
-			nanosleep( &timing, NULL );
+			//nanosleep( &timing, NULL );
 			// cout << "\r                       \r";	// overwrite previous number with spaces
 			cout << "\b\b\b\b\b\b       \b\b\b\b\b\b";	// overwrite previous number with spaces
 			// cout << "\b\b\b\b\b\b";	// backspace over previously  displayed characters
