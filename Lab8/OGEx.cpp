@@ -60,12 +60,18 @@ void *countDownThread( void *param ){
 
 			else if(userInput == 'd'){
 
-				countUp = false;
+				if(countUp = true)
+					countUp = false;
+
+				if(countUp = false)
+					countUp = true;
+
+				
 			}
 
 			if(countSpeed == 0){
 
-				cout << "countSpeed = 0\n";
+				//cout << "countSpeed = 0\n";
 
 				if(userInput == '+'){
 
@@ -78,7 +84,7 @@ void *countDownThread( void *param ){
 
 			else if(countSpeed == 1){
 
-				cout << "countSpeed = 1\n";
+				//cout << "countSpeed = 1\n";
 
 				if(userInput == '-'){
 
@@ -99,7 +105,7 @@ void *countDownThread( void *param ){
 
 			else if(countSpeed == 2){
 
-				cout << "countSpeed = 2\n";
+				//cout << "countSpeed = 2\n";
 
 				if(userInput == '-'){
 
@@ -121,7 +127,7 @@ void *countDownThread( void *param ){
 
 			else if(countSpeed == 3){
 
-				cout << "countSpeed = 3\n";
+				//cout << "countSpeed = 3\n";
 				if(userInput == '-'){
 
 					timing.tv_sec = 0;
@@ -137,16 +143,16 @@ void *countDownThread( void *param ){
 				if(countUp){
 
 					cout << ++value << flush;	// flush to make the value display	
-					nanosleep( &timing, NULL );	
-
+					
 				}
 
 				else{
 
 					cout << --value << flush;	// flush to make the value display
-					nanosleep( &timing, NULL );
-
 				}
+
+				//nanosleep( &timing, NULL );
+				//userInput = 'x';
 
 			}
 
@@ -154,12 +160,14 @@ void *countDownThread( void *param ){
 				
 				timing.tv_sec = 0;
 				timing.tv_nsec = 000000000L;
+				cout << value << flush;
+				
 			}
 
 			//cout << ++value << flush;	// flush to make the value display
 			// sleep( 1 );							// wait 1 second
 
-			//nanosleep( &timing, NULL );
+			nanosleep( &timing, NULL );
 			// cout << "\r                       \r";	// overwrite previous number with spaces
 			cout << "\b\b\b\b\b\b       \b\b\b\b\b\b";	// overwrite previous number with spaces
 			// cout << "\b\b\b\b\b\b";	// backspace over previously  displayed characters
@@ -173,6 +181,3 @@ void *countDownThread( void *param ){
 	cout << "countDownThread thread exited\n";
 	pthread_exit( 0 );
 }
-
-/*
-*/
