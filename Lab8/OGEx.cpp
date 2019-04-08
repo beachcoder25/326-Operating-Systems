@@ -55,17 +55,62 @@ void *countDownThread( void *param ){
 		{
 			if(userInput == 's'){
 
-				countEnable = false;
+				if(countEnable == true)
+					countEnable = false;
+
+				else if(countEnable == false)
+					countEnable = true;
+
+				userInput = 'x';
 			}
 
+
+
+			// else if(countUp = true){
+				
+			// 	cout << "countUp = " << countUp << endl;
+
+			// 	if(userInput == 'd'){
+			// 		countUp = false;
+			// 	}
+
+			// 	cout << "countUp = " << countUp << endl;
+			// }
+
+
+			// else if(countUp = false){
+
+			// 	cout << "countUp = " << countUp << endl;
+
+			// 	if(userInput == 'd'){
+			// 		countUp = false;
+			// 	}
+
+			// 	cout << "countUp = " << countUp << endl;
+
+			// }
+
+			
 			else if(userInput == 'd'){
 
-				if(countUp = true)
+				cout << "countUpBefore = " << countUp << endl;
+
+				//countUp = !countUp;
+				
+				if(countUp == true){
+					cout << "In true block\n";
 					countUp = false;
+				}
+					
 
-				if(countUp = false)
+				else if(countUp == false){
+					cout << "In false block\n";
 					countUp = true;
-
+				}
+					
+				countUp = countUp;
+				cout << "countUpAfter = " << countUp << endl;
+				userInput = 'x';
 				
 			}
 
@@ -138,17 +183,20 @@ void *countDownThread( void *param ){
 				}				
 			}
 
-			if(countEnable){
+			if(countEnable == true){
 
-				if(countUp){
+				if(countUp == true){
 
-					cout << ++value << flush;	// flush to make the value display	
-					
+					++value;
+					//cout << ++value; // << flush;	// flush to make the value display	
+					countUp = true;
 				}
 
-				else{
+				else if (countUp == false){
 
-					cout << --value << flush;	// flush to make the value display
+					--value;
+					//cout << --value; // << flush;	// flush to make the value display
+					countUp = false;
 				}
 
 				//nanosleep( &timing, NULL );
@@ -156,13 +204,19 @@ void *countDownThread( void *param ){
 
 			}
 
-			else if (countEnable = false){
+			// else if (countEnable == false){
 				
-				timing.tv_sec = 0;
-				timing.tv_nsec = 000000000L;
-				cout << value << flush;
+			// 	timing.tv_sec = 0;
+			// 	timing.tv_nsec = 000000000L;
 				
-			}
+				
+			// }
+
+			// else if(countEnable == true){
+
+			// }
+
+			cout << value << flush;
 
 			//cout << ++value << flush;	// flush to make the value display
 			// sleep( 1 );							// wait 1 second
